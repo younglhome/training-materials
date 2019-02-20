@@ -33,9 +33,9 @@ partitions. Umount them with a command such as
 depending on how the system sees the media card device.
 
 Now type the below command to partition the micro-SD card
-(we assume that the card is seen as '/dev/mmcblk0'):
+(we assume that the card is seen as '/dev/sdd'):
 
-sudo sfdisk /dev/mmcblk0 << EOF
+sudo sfdisk /dev/sdd << EOF
 1,,0xE,*
 EOF
 
@@ -44,14 +44,14 @@ partitions are detected properly)
 
 Now, format the first partition in FAT format:
 
-sudo mkfs.vfat -F 32 /dev/mmcblk0p1 -n boot
+sudo mkfs.vfat -F 32 /dev/sdd1 -n boot
 
 Remove the card and insert it again. It should automatically be mounted
 on '/media/$USER/boot'.
 
 Now, copy the below files to this partition:
 
-cp dtb MLO MLO.final u-boot.img u-boot.img.final MBR /media/$USER/boot
+cp dtb zImage MLO MLO.final u-boot.img u-boot.img.final MBR /media/$USER/boot
 
 Note that we're using two versions of U-Boot:
 - MLO, u-boot.img: just used for booting from external MMC and booting the kernel/rootfs
